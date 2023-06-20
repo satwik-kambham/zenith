@@ -15,7 +15,7 @@ export default function Home() {
   if (user) {
     return (
       <main className={`${inter.className}`}>
-        <Profile user={user} />
+        <Profile authUser={user} />
       </main>
     );
   }
