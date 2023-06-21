@@ -1,13 +1,13 @@
 import { Inter } from "next/font/google";
 import { useUser } from "@auth0/nextjs-auth0/client";
-
-import Landing from "@/components/Landing";
-import Dashboard from "@/components/Dashboard";
+import { useRouter } from "next/router";
+import Generate from "@/components/Generate";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function GeneratePage() {
   const { user, error, isLoading } = useUser();
+  const router = useRouter();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -15,14 +15,10 @@ export default function Home() {
   if (user) {
     return (
       <main className={`${inter.className}`}>
-        <Dashboard authUser={user} />
+        <Generate authUser={user} />
       </main>
     );
   }
 
-  return (
-    <main className={`${inter.className}`}>
-      <Landing />
-    </main>
-  );
+  router.replace("/");
 }

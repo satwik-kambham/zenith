@@ -6,7 +6,6 @@ export default async function handle(req, res) {
       auth0Id: req.body.sub,
     },
   });
-  console.log(user);
 
   if (!user) {
     user = await prisma.user.create({

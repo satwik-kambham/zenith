@@ -1,10 +1,12 @@
+import { UserProfile } from "@auth0/nextjs-auth0/client";
 import { useState } from "react";
 
-export default function Generate() {
+export default function Generate({ authUser }: { authUser: UserProfile }) {
   const [topicInput, setTopicInput] = useState("");
   const [levelInput, setLevelInput] = useState("beginner");
   const [methods, setMethods] = useState([]);
   const [result, setResult] = useState("");
+  const [path, setPath] = useState({});
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -29,6 +31,13 @@ export default function Generate() {
         );
       }
 
+      setPath({
+        topic: topicInput,
+        level: levelInput,
+        methods: methods.join(", "),
+        result: data.result,
+      });
+
       setResult(data.result);
       setTopicInput("");
       setLevelInput("beginner");
@@ -48,6 +57,19 @@ export default function Generate() {
         prevMethods.filter((method) => method !== value)
       );
     }
+  }
+
+  async function savePath() {
+    const response = await fetch("/api/addPath", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        auth0Id: authUser.sub,
+        path: path,
+      }),
+    });
   }
 
   return (
@@ -111,6 +133,7 @@ export default function Generate() {
         <input type="submit" value="Generate" />
       </form>
       <div>{result}</div>
+      <button onClick={savePath}>Save</button>
     </div>
   );
 }

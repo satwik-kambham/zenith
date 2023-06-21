@@ -15,27 +15,30 @@ export default function Profile({ authUser }: { authUser: UserProfile }) {
         body: JSON.stringify(authUser),
       });
       const data = await response.json();
+
       setUser(data);
     };
 
     fetchUser();
-  }, []);
+  }, [authUser]);
 
   return (
-    <div className="container">
-      <h1>Zenith</h1>
-      <img src={authUser.picture} alt={authUser.name} />
-      <h3>{authUser.name}</h3>
-      <p>{authUser.email}</p>
+    user && (
+      <div className="container">
+        <h1>Zenith</h1>
+        <img src={authUser.picture} alt={authUser.name} />
+        <h3>{authUser.name}</h3>
+        <p>{authUser.email}</p>
 
-      <p>{user.name}</p>
-      <p>{user.email}</p>
-      <p>{user.auth0Id}</p>
-      <p>{user.id}</p>
+        <p>{user.name}</p>
+        <p>{user.email}</p>
+        <p>{user.auth0Id}</p>
+        <p>{user.id}</p>
 
-      <a className="button" href="/api/auth/logout">
-        Logout
-      </a>
-    </div>
+        <a className="button" href="/api/auth/logout">
+          Logout
+        </a>
+      </div>
+    )
   );
 }
