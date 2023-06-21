@@ -3,6 +3,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 import Landing from "@/components/Landing";
 import Profile from "@/components/Profile";
+import Generate from "@/components/Generate";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,8 @@ export default function Home() {
   if (user) {
     return (
       <main className={`${inter.className}`}>
-        <Profile authUser={user} />
+        {/* <Profile authUser={user} /> */}
+        <Generate />
       </main>
     );
   }
