@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import PathCard from "./PathCard";
+import { UserProfile } from "@auth0/nextjs-auth0/client";
+import Link from "next/link";
 
-export default function Dashboard({ authUser }) {
+export default function Dashboard({ authUser }: { authUser: UserProfile }) {
   const [user, setUser] = useState();
   const [paths, setPaths] = useState();
 
@@ -43,12 +45,12 @@ export default function Dashboard({ authUser }) {
       <>
         <h1>Dashboard</h1>
         <p>{user.name}</p>
-        <a className="button" href="/profile">
+        <Link className="button" href="/profile">
           Profile
-        </a>
-        <a className="button" href="/generate">
+        </Link>
+        <Link className="button" href="/generate">
           Generate
-        </a>
+        </Link>
         {paths && (
           <div className="grid">
             {paths.map((path) => (

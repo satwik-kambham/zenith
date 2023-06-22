@@ -26,15 +26,15 @@ export default function Profile({ authUser }: { authUser: UserProfile }) {
     user && (
       <div className="container">
         <h1>Zenith</h1>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={authUser.picture} alt={authUser.name} />
         <h3>{authUser.name}</h3>
         <p>{authUser.email}</p>
-
         <p>{user.name}</p>
         <p>{user.email}</p>
         <p>{user.auth0Id}</p>
         <p>{user.id}</p>
-
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a className="button" href="/api/auth/logout">
           Logout
         </a>
