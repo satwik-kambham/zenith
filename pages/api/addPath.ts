@@ -17,6 +17,7 @@ export default async function handle(req, res) {
       topic: req.body.path.topic,
       level: req.body.path.level,
       methods: req.body.path.methods,
+      result: req.body.path.result,
     },
   });
 
