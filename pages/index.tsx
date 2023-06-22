@@ -1,10 +1,7 @@
-import { Inter } from "next/font/google";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 import Landing from "@/components/Landing";
 import Dashboard from "@/components/Dashboard";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
@@ -13,16 +10,8 @@ export default function Home() {
   if (error) return <div>{error.message}</div>;
 
   if (user) {
-    return (
-      <main className={`${inter.className}`}>
-        <Dashboard authUser={user} />
-      </main>
-    );
+    return <Dashboard authUser={user} />;
   }
 
-  return (
-    <main className={`${inter.className}`}>
-      <Landing />
-    </main>
-  );
+  return <Landing />;
 }

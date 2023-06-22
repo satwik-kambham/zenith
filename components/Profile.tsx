@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { UserProfile } from "@auth0/nextjs-auth0/client";
+import Link from "next/link";
 
 export default function Profile({ authUser }: { authUser: UserProfile }) {
   const [user, setUser] = useState();
@@ -24,20 +25,36 @@ export default function Profile({ authUser }: { authUser: UserProfile }) {
 
   return (
     user && (
-      <div className="container">
-        <h1>Zenith</h1>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={authUser.picture} alt={authUser.name} />
-        <h3>{authUser.name}</h3>
-        <p>{authUser.email}</p>
-        <p>{user.name}</p>
-        <p>{user.email}</p>
-        <p>{user.auth0Id}</p>
-        <p>{user.id}</p>
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        <a className="button" href="/api/auth/logout">
-          Logout
-        </a>
+      <div className="antialiased bg-gray-900 min-h-screen overflow-hidden">
+        <header className="flex items-center justify-between px-16 pt-8 pb-4 bg-gray-900 text-white justify-center">
+          <div className="flex items-center">
+            <img src="/favicon.ico" alt="Logo" className="h-8 w-8 mr-2" />
+            <h1 className="text-xl font-semibold">Zenith</h1>
+          </div>
+        </header>
+        <div className="text-center p-4 text-white pt-16">
+          <Link
+            className="bg-gradient-to-r from-blue-500 to-teal-400 text-white py-2 px-4 rounded inline-block w-full sm:w-auto"
+            href="/"
+          >
+            Return to Dashboard
+          </Link>
+          <div className="my-8">
+            <img
+              src={authUser.picture}
+              alt={authUser.name}
+              className="mx-auto h-32 w-32 rounded-full"
+            />
+            <p className="text-xl font-semibold">{user.name}</p>
+            <p className="text-gray-400">{user.email}</p>
+            <a
+              className="bg-gradient-to-r from-blue-500 to-teal-400 text-white py-2 px-4 rounded inline-block w-full sm:w-auto mt-4"
+              href="/api/auth/logout"
+            >
+              Logout
+            </a>
+          </div>
+        </div>
       </div>
     )
   );
