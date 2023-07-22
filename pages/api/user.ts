@@ -8,13 +8,21 @@ export default async function handle(req, res) {
   });
 
   if (!user) {
-    user = await prisma.user.create({
-      data: {
-        auth0Id: req.body.sub,
-        name: req.body.name,
-        email: req.body.email,
-      },
-    });
+    try {
+      user = await prisma.user.create({
+        data: {
+          auth0Id: req.body.sub,
+          name: req.body.name,
+          email: req.body.email,
+        },
+      });
+    } catch (error) {
+      user = await prisma.user.findUnique({
+        where: {
+          auth0Id: req.body.sub,
+        },
+      });
+    }
   }
   res.status(200).json(user);
 }

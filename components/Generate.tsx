@@ -15,7 +15,7 @@ export default function Generate({ authUser }: { authUser: UserProfile }) {
   async function onSubmit(event) {
     event.preventDefault();
     try {
-      const response = await fetch("/api/gen", {
+      const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -189,7 +189,9 @@ export default function Generate({ authUser }: { authUser: UserProfile }) {
               className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded w-full sm:w-auto cursor-pointer"
             />
           </form>
-          <div className="text-white">{result}</div>
+          <div className="text-white">
+            <pre className="font-sans">{result}</pre>
+          </div>
           <button
             onClick={savePath}
             className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mt-4"
